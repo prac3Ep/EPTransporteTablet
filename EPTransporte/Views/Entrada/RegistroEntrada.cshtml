@@ -1,0 +1,148 @@
+﻿@model EPTransporte.Models.EntradaModel
+
+@{
+    ViewBag.Title = "Registro de Entrada";
+}
+
+<div class="main-container">
+
+    @using (Html.BeginForm("RegistroEntrada", "Entrada", FormMethod.Post, new { @class = "form-optimized", id = "entradaForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!-- Sección de Transporte -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-truck"></i>Transporte
+            </div>
+            <div class="card-body">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdTransportista, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.IdTransportista,
+                                (IEnumerable<SelectListItem>)ViewBag.Transportistas,
+                                "Seleccione transportista",
+                                new
+                                     {
+                                    @class = "form-select",
+                                    id = "transportistaDropdown"
+                                })
+                            @Html.ValidationMessageFor(model => model.IdTransportista, "", new { @class = "text-danger small" })
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdOperador, new { @class = "form-label" })
+                            <select id="operadorDropdown" name="IdOperador" class="form-select">
+                                <option value="">Seleccione operador</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.IdOperador, "", new { @class = "text-danger small" })
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdEconomico, new { @class = "form-label" })
+                            <select id="economicoDropdown" name="IdEconomico" class="form-select">
+                                <option value="">Seleccione económico</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.IdEconomico, "", new { @class = "text-danger small" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estado del Transporte -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-truck-loading"></i>Estado del Transporte
+            </div>
+            <div class="card-body">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="form-check form-switch">
+                            @Html.CheckBoxFor(model => model.Vacio, new { @class = "form-check-input estado-checkbox", id = "vacioCheckbox" })
+                            @Html.LabelFor(model => model.Vacio, new { @class = "form-check-label", @for = "vacioCheckbox" })
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check form-switch">
+                            @Html.CheckBoxFor(model => model.Cargado, new { @class = "form-check-input estado-checkbox", id = "cargadoCheckbox" })
+                            @Html.LabelFor(model => model.Cargado, new { @class = "form-check-label", @for = "cargadoCheckbox" })
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check form-switch">
+                            @Html.CheckBoxFor(model => model.Botando, new { @class = "form-check-input estado-checkbox", id = "botandoCheckbox" })
+                            @Html.LabelFor(model => model.Botando, new { @class = "form-check-label", @for = "botandoCheckbox" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detalles de Carga -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-box-open"></i>Detalles de Carga
+            </div>
+            <div class="card-body">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NumCaja, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.NumCaja, new
+                            {
+                                @class = "form-control",
+                                placeholder = "Número de caja",
+                                id = "numCajaInput",
+                                @readonly = "readonly"
+                            })
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NumSello, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.NumSello, new
+                            {
+                                @class = "form-control",
+                                placeholder = "Número de sello",
+                                id = "numSelloInput",
+                                @readonly = "readonly"
+                            })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="action-buttons">
+            <a href="@Url.Action("Index","Home")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>Regresar
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i>Registrar Entrada
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/confirmarsalidas.js"></script>
+    <script>
+        $(document).ready(function() {
+            configurarFormularioTransporte('entradaForm');
+
+            // Cargar datos iniciales si existen
+            const transportistaSeleccionado = $('#transportistaDropdown').val();
+            if (transportistaSeleccionado) {
+                cargarOperadores(transportistaSeleccionado, '@Model.IdOperador');
+                cargarEconomicos(transportistaSeleccionado, '@Model.IdEconomico');
+            }
+        });
+    </script>
+}

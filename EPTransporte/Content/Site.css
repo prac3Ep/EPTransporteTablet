@@ -1,0 +1,781 @@
+﻿/* Inter Regular */
+@font-face {
+    font-family: 'Inter';
+    src: url('/Content/fonts/inter/inter-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Inter SemiBold */
+@font-face {
+    font-family: 'Inter';
+    src: url('/Content/fonts/inter/inter-600.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Roboto Light */
+@font-face {
+    font-family: 'Roboto';
+    src: url('/Content/fonts/roboto/roboto-300.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* ===== ESTILOS BASE ===== */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding-top: 56px; /* Compensa la navbar fija */
+    top: 0 !important; /* Para el traductor de Google */
+}
+
+/* ===== ESTRUCTURA PRINCIPAL ===== */
+.principal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100vh - 56px);
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.content {
+    flex: 1;
+    padding: 10px;
+    overflow: auto;
+}
+
+/* ===== COMPONENTES REUTILIZABLES ===== */
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    height: 56px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 220px;
+    height: calc(100vh - 56px);
+    background-color: #e8e8e8;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 1000;
+}
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+.main-content {
+    transition: margin-left 0.3s;
+    margin: 20px;
+}
+
+    .main-content.shifted {
+        margin-left: 230px;
+    }
+
+/* Tarjetas */
+.card {
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .card:hover {
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+/* Secciones de formulario */
+.form-section {
+    background-color: #f8f9fa;
+    padding: 5px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    border: 3px solid #dee2e6;
+}
+
+/* ===== ELEMENTOS DE FORMULARIO ===== */
+.form-control {
+    border-radius: 4px;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    max-width: 100%; /* Mejor que el valor fijo de 280px */
+}
+
+/* ===== ELEMENTOS DE FORMULARIO ===== */
+#Buscador {
+    border-radius: 4px;
+    padding: 1px 1.5px;
+    border: 1px solid #ced4da;
+    max-width: 100%; /* Mejor que el valor fijo de 280px */
+}
+
+/* ===== COMPONENTES ESPECÍFICOS ===== */
+/* Traductor de Google */
+.goog-te-banner-frame.skiptranslate,
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.goog-te-tooltip,
+.goog-te-balloon-frame {
+    display: none !important;
+}
+
+.goog-te-gadget {
+    font-size: 0 !important;
+}
+
+.goog-te-gadget-simple {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+/* Oculta la barra superior del traductor */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+/* Oculta el iframe del traductor */
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Evita que el cuerpo de la página se mueva */
+body {
+    top: 0 !important;
+}
+
+/* Opcional: Oculta el espacio en blanco que podría quedar */
+.goog-te-gadget {
+    font-size: 0 !important;
+}
+
+/* Oculta los tooltips de calificación del traductor */
+.goog-te-tooltip {
+    display: none !important;
+}
+
+/* Oculta el tooltip de "Traducido por Google" */
+.goog-te-balloon-frame {
+    display: none !important;
+}
+
+/* Opcional: Mejora el estilo del selector */
+.goog-te-gadget-simple {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+/* ===== ESTILOS BASE MEJORADOS ===== */
+:root {
+    --primary-color: #1E82FC; /* Azul principal */
+    --secondary-color: #66C0F1; /* Celeste */
+    --accent-color: #F13E53; /* Rojo complementario */
+    --light-color: #F6F6F6; /* Neutro claro */
+    --dark-color: #021649; /* Azul oscuro */
+    --success-color: #27ae60; /* Puedes mantener este o alinear con branding si aplica */
+    --warning-color: #f39c12;
+    --danger-color: #F13E53; /* También como acento rojo */
+    --border-radius: 10px;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ===== ESTRUCTURA PRINCIPAL MEJORADA ===== */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== TARJETAS MEJORADAS ===== */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    margin-bottom: 25px;
+    background: white;
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+    .card-header i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+.card-body {
+    padding: 20px;
+}
+
+/* ===== FORMULARIOS MEJORADOS ===== */
+.form-label {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    border: 2px solid #dfe6e9;
+    border-radius: var(--border-radius);
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: var(--transition);
+    width: 100%;
+}
+
+    .form-control:focus {
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+.form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0.2em;
+}
+
+.form-switch .form-check-input {
+    width: 2.5em;
+}
+
+/* ===== BOTONES MEJORADOS ===== */
+.btn {
+    border-radius: var(--border-radius);
+    padding: 12px 24px;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+    .btn i {
+        margin-right: 8px;
+    }
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+}
+
+/* ===== ALERTAS MEJORADAS ===== */
+.alert {
+    border-radius: var(--border-radius);
+    padding: 15px 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+    .alert i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+/* ===== GRID MEJORADO ===== */
+.row-cols-md-3 > * {
+    padding: 15px;
+}
+
+/* ===== EFECTOS HOVER ===== */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* ===== DISEÑO PARA TABLET ===== */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .card {
+        margin-bottom: 30px;
+    }
+
+    .card-header {
+        padding: 18px 25px;
+        font-size: 1.2rem;
+    }
+
+    .card-body {
+        padding: 25px;
+    }
+
+    .form-control {
+        padding: 14px 18px;
+        font-size: 1.05rem;
+    }
+
+    .btn {
+        padding: 14px 28px;
+        font-size: 1.05rem;
+    }
+
+    .form-switch .form-check-input {
+        width: 3em;
+        height: 1.5em;
+    }
+
+    .form-label {
+        font-size: 1.05rem;
+    }
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA BOTONES DE ACCIÓN ===== */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+    .action-buttons .btn {
+        flex: 1;
+        padding: 14px;
+    }
+
+/* ===== ESTILOS PARA CAMPOS DE SOLO LECTURA ===== */
+.readonly-field {
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos específicos para selects en tablet */
+@media (min-width: 768px) {
+    .form-select {
+        padding: 1rem 1.5rem !important;
+        font-size: 1.05rem;
+        min-height: 3.5rem;
+    }
+
+    .form-check-input {
+        width: 3em;
+        height: 1.5em;
+    }
+
+    .action-buttons .btn {
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Efectos para selects */
+.form-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Estilo para selects requeridos */
+.form-select:required {
+    border-left: 3px solid #3498db;
+}
+
+/* Estilo para selects con error */
+.input-validation-error.form-select {
+    border-color: #e74c3c !important;
+    background-color: #fff6f6;
+}
+
+/* Transición suave para cambios */
+.form-select, .form-check-input {
+    transition: all 0.3s ease;
+}
+
+/* Estilos específicos para tablet */
+@media (min-width: 768px) {
+    .form-check-input {
+        width: 3em;
+        height: 1.5em;
+    }
+
+    .action-buttons .btn {
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .form-control {
+        padding: 1rem !important;
+        font-size: 1.05rem;
+    }
+}
+
+/* Efectos hover para botones */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Estilo para campos requeridos */
+.form-control:required {
+    border-left: 3px solid #3498db;
+}
+
+/* Estilo para validación */
+.field-validation-error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.input-validation-error {
+    border-color: #e74c3c !important;
+    background-color: #fff6f6;
+}
+
+/* Estilos específicos para la tabla */
+#SalidasTabla {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    #SalidasTabla thead th {
+        background-color: #2c3e50;
+        color: white;
+        position: sticky;
+        top: 0;
+    }
+
+    #SalidasTabla tbody tr:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+    }
+
+/* Estilos para botones en la tabla */
+.btn-sm {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.875rem;
+    border-radius: 0.3rem;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .card-header h5 {
+        font-size: 1.1rem;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Estilos para tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .card-header {
+        padding: 1rem 1.5rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    #SalidasTabla {
+        font-size: 0.95rem;
+    }
+}
+
+body {
+    font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+.btn-entrada {
+    background-color: #66C0F1;
+}
+
+.btn-salida {
+    background-color: #021649;
+}
+
+.btn-general {
+    background-color: #1E82FC;
+}
+
+/* ===== COLORES DE BOTONES PERSONALIZADOS ===== */
+.btn-entrada {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+    .btn-entrada:hover {
+        background-color: #4ea9dc;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+    }
+
+/* Botón SALIDA */
+.btn-salida {
+    background-color: var(--dark-color);
+    color: #fff;
+}
+
+    .btn-salida:hover {
+        background-color: #011133;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+    }
+
+/* Botón ENTRADA GENERAL */
+.btn-general {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+    .btn-general:hover {
+        background-color: #176bce;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+    }
+
+/* Botón IDIOMA */
+.btn-secondary {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+    .btn-secondary:hover {
+        background-color: #c92f43;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-3px);
+    }
+
+/* Ajustes comunes de animación y transiciones */
+.btn {
+    transition: var(--transition);
+    text-align: center;
+}
+
+    .btn i {
+        transition: transform 0.3s ease;
+    }
+
+    .btn:hover i {
+        transform: scale(1.1);
+    }
+
+/* Contenedor del buscador */
+.dataTables_filter {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+    /* Input de búsqueda */
+    .dataTables_filter .form-control.form-control-sm {
+        flex: 0 0 18px !important; /* Ancho fijo */
+        height: 3px !important;
+        transition: all 0.3s ease;
+    }
+
+        /* Efecto hover opcional */
+        .dataTables_filter .form-control.form-control-sm:hover {
+            border-color: #1E82FC; /* Usando tu color primario */
+        }
+
+
+/* Ajusta la posición vertical de las notificaciones */
+.my-swal-container {
+    margin-top: 50px !important; /* Ajusta este valor según necesites */
+}
+
+/* O si prefieres un enfoque más general para todos los toasts de SweetAlert */
+.swal2-container.swal2-top-end > .swal2-popup {
+    margin-top: 50px !important;
+}
+
+.my-swal-container {
+    width: auto !important;
+    max-width: 600px !important; /* Ajusta este valor según necesites */
+    padding: 0 20px !important;
+}
+
+    /* Para el contenedor del toast (opcional, si necesitas ajustar el toast específicamente) */
+    .my-swal-container.swal2-toast {
+        width: auto !important;
+        min-width: 400px !important; /* Ajusta este valor para los toast */
+    }
+
+
+
+/* Estilos para el menú superior */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    height: 56px;
+    padding: 0 10px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 5px;
+    }
+
+    /* Logo más pequeño en móviles */
+    .navbar-brand img {
+        height: 30px !important;
+    }
+
+    /* Icono de casa más pequeño */
+    .fa-house {
+        font-size: 1.5rem !important;
+    }
+
+    /* Texto de sucursal más compacto */
+    #sucursal span {
+        display: none;
+    }
+
+    #sucursal a {
+        padding: 5px !important;
+        margin-right: 5px !important;
+    }
+
+    #sucursal .fa-building {
+        margin-right: 0 !important;
+    }
+
+    /* Posición del icono de casa ajustada */
+    .position-absolute.start-50.translate-middle-x {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+}
+
+
+/* Estilos responsivos para los mensajes */
+@media (max-width: 768px) {
+    .my-swal-container {
+        width: 95% !important;
+        max-width: 95% !important;
+        padding: 0 5px !important;
+    }
+
+    .responsive-swal {
+        width: 100% !important;
+        max-width: 100% !important;
+        font-size: 0.9rem !important;
+    }
+
+    .swal2-title {
+        font-size: 1.1rem !important;
+    }
+
+    .swal2-content {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* wwwroot/css/animations.css */
+@keyframes pulseScale {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.swal2-icon.swal2-success {
+    color: #3498db !important; /* Azul */
+    border-color: #3498db !important;
+}
+
+/* Cambia las líneas de la palomita */
+.swal2-success-line-tip,
+.swal2-success-line-long {
+    background-color: #3498db !important;
+}
+
+/* Cambia el anillo de fondo */
+.swal2-success-ring {
+    border-color: rgba(52, 152, 219, 0.3) !important; /* Azul con transparencia */
+}
+.btn-success {
+    background-color: #021649;
+}
+    .btn-success:hover, .btn-success:focus {
+        background-color: #1E82FC;
+    }
+
+
+.btn:focus {
+    background-color:black;
+}
+
+
+
+.fas {
+    padding: 2px;
+}
+
+.icon {
+    padding: 2px;
+}

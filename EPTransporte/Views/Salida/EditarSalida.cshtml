@@ -1,0 +1,228 @@
+﻿@model EPTransporte.Models.EditSalida
+
+@{
+    ViewBag.Title = "DetalleSalida";
+}
+
+<div class="main-container">
+
+
+    @using (Html.BeginForm("ActualizarFechaSalida", "Salida", FormMethod.Post, new { @class = "form-optimized" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.IdSalida)
+
+        <!-- Información General -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-info-circle"></i>Información General
+            </div>
+            <div class="card-body">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                    <div class="col">
+                        <label class="form-label">Folio</label>
+                        <div class="readonly-field">@Model.Folio</div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Sucursal EP</label>
+                        <div class="readonly-field">@Model.SucursalEP</div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Auditor</label>
+                        <div class="readonly-field">@Model.Auditor</div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Fecha de Salida</label>
+                        <div class="readonly-field">
+                            @(Model.FechaSalida.HasValue ? Model.FechaSalida.Value.ToString("g") : "Pendiente")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transporte -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-truck"></i>Transporte
+            </div>
+            <div class="card-body">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <label class="form-label">Transportista</label>
+                        <div class="readonly-field">@Model.Transportista</div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Operador</label>
+                        <div class="readonly-field">@Model.Operador</div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Económico</label>
+                        <div class="readonly-field">@Model.Economico</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detalles de Carga -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-boxes"></i>Detalles de Carga
+            </div>
+            <div class="card-body">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <label class="form-label">Número de Caja</label>
+                        <div class="readonly-field">@Model.NumCaja</div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Número de Sello</label>
+                        <div class="readonly-field">@Model.NumSello</div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <div class="d-flex flex-wrap gap-4">
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.LocalViaje, new { @class = "form-check-input", disabled = "disabled" })
+                                <label class="form-check-label">Local/Viaje</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.Expo, new { @class = "form-check-input", disabled = "disabled" })
+                                <label class="form-check-label">Expo</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.Cabina, new { @class = "form-check-input", disabled = "disabled" })
+                                <label class="form-check-label">Cabina</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.Caja, new { @class = "form-check-input", disabled = "disabled" })
+                                <label class="form-check-label">Caja</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.Cargado, new { @class = "form-check-input", disabled = "disabled" })
+                                <label class="form-check-label">Cargado</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.Vacio, new { @class = "form-check-input", disabled = "disabled" })
+                                <label class="form-check-label">Vacío</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+
+            <a href="@Url.Action("Index")" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>Regresar
+            </a>
+
+            @if (!Model.FechaSalida.HasValue)
+            {
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check"></i>Registrar Salida
+                </button>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    /* Estilos responsivos adicionales */
+    @@media (max-width: 768px) {
+        .card-header h6 {
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-control-plaintext {
+            padding: 0.5rem !important;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .form-label, .form-check-label {
+            font-size: 0.8rem;
+        }
+
+        .card-body {
+            padding: 1rem !important;
+        }
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Configuración para el botón de Registrar Salida
+            $('form').on('submit', function (e) {
+                e.preventDefault(); // Prevenir envío automático
+
+                Swal.fire({
+                    title: 'Confirmar Registro de Salida',
+                    html: `
+                        <div class="text-center">
+            <img src="../../imagen/camion.png" alt="Descripción de la imagen"
+                 style="width: 100%; height: auto; margin-bottom: 15px; animation: moveBus 2s infinite;">                            <p>¿Estás seguro que deseas registrar la salida del transporte?</p>
+                            <p><strong>Folio:</strong> @Model.Folio</p>
+                            <p><strong>Transportista:</strong> @Model.Transportista</p>
+                        </div>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: '<i class="fas fa-check-circle"></i> Confirmar',
+                    cancelButtonText: '<i class="fas fa-times-circle"></i> Cancelar',
+                    customClass: {
+                        popup: 'animated bounceIn' // Animación de entrada
+                    },
+                    willOpen: () => {
+                        // Agregar animación CSS para el autobús
+                        const style = document.createElement('style');
+                        style.innerHTML = `
+                            @@keyframes moveBus {
+                                0% { transform: translateX(-10px); }
+                                50% { transform: translateX(10px); }
+                                100% { transform: translateX(-10px); }
+                            }
+                        `;
+                        document.head.appendChild(style);
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Mostrar loader mientras se procesa
+                        Swal.fire({
+                            title: 'Registrando Salida',
+                            html: 'Por favor espera...',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                                // Enviar el formulario manualmente después de la confirmación
+                                $('form').off('submit').submit();
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Estilos adicionales para la alerta
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .swal2-popup .swal2-actions {
+                    margin-top: 1.5rem;
+                }
+                .swal2-popup .swal2-content {
+                    font-size: 1.1rem;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+}

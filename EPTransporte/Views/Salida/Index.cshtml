@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EPTransporte.Models.DatosSalida>
+
+@{
+    ViewBag.Title = "Salidas";
+}
+
+<div class="main-container">
+
+
+    <!-- Tarjeta principal mejorada -->
+    <div class="card shadow-sm rounded mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Listado de Salidas</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="SalidasTabla" class="table table-bordered table-hover w-100 table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Económico</th>
+                            <th>Transportista</th>
+                            <th class="text-center">Revisar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Economico</td>
+                                <td>@item.Transportista</td>
+                                <td class="text-center">
+                                    <a href="@Url.Content("~/Salida/EditarSalida/" + item.IdPaseSalida)" class="btn btn-success btn-sm">
+                                        <i class="fas fa-clipboard-list me-1"></i> Revisar
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#SalidasTabla').DataTable({
+                "info": false,        // Oculta el texto "Mostrando X de Y entradas"
+                "lengthChange": false,  // Oculta el dropdown "Show [X] entries"
+
+                initComplete: function () {
+                    $('.dataTables_filter input')
+                        .addClass('form-control form-control-sm')
+                        .css({
+                            'width': '18px',
+                            'height': '20px',
+                            'font-size': '0.8rem'
+                        });
+
+                    // Opcional: Ajustar el contenedor
+                    $('.dataTables_filter').css({
+                        'display': 'flex',
+                        'align-items': 'center'
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+<style>
+</style>

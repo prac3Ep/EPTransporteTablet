@@ -1,0 +1,15 @@
+2025-06-03 09:55:02 - ModelState no válido en RegistroEntrada
+Exception: System.Exception: El sucursal es requerido
+
+2025-06-05 10:58:16 - ModelState no válido en RegistroEntrada
+Exception: System.Exception: El transportista es requerido; El operador es requerido; El económico es requerido
+
+2025-06-11 12:07:50 - ModelState no válido en RegistroEntrada
+Exception: System.Exception: El transportista es requerido; El operador es requerido; El económico es requerido
+
+2025-06-11 12:08:22 - ModelState no válido en RegistroEntrada
+Exception: System.Exception: El transportista es requerido; El operador es requerido; El económico es requerido
+
+2025-06-11 12:08:34 - ModelState no válido en RegistroEntrada
+Exception: System.Exception: El transportista es requerido; El operador es requerido; El económico es requerido
+

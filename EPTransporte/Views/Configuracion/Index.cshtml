@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Configuración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Configuración de Sucursal</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Seleccione su sucursal</h5>
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                    <div class="alert alert-danger auto-dismiss">
+                        @TempData["ErrorMessage"]
+                    </div>
+                    }
+                    @using (Html.BeginForm("SeleccionarSucursal", "Configuracion", FormMethod.Post))
+                    {
+                    <div class="form-group mb-3">
+                        @Html.Label("sucursalId", "Sucursal", htmlAttributes: new { @class = "form-label" })
+                        @Html.DropDownList("sucursalId", ViewBag.Sucursales as SelectList, "Seleccione una sucursal", new { @class = "form-control" })
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Guardar Selección</button>
+                    }
+
+                    @if (Session["SucursalSeleccionada"] != null)
+                    {
+                        var sucursal = Session["SucursalSeleccionada"] as EPTransporte.Models.Sucursal;
+                    <div class="alert alert-info mt-4">
+                        <strong>Sucursal actual seleccionada:</strong> @sucursal.DisplayText
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

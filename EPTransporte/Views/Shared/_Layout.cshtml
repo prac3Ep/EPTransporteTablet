@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="@(ViewBag.IdiomaActual ?? "es")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" charset="utf-8">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/iconos/css/all.min.css" />
+
+    <!-- Hojas de estilo principales -->
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <!-- DataTables CSS -->
+    <link href="@Url.Content("~/Content/DataTables/datatables.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/DataTables/dataTables.css")" rel="stylesheet" />
+    <script src="~/Scripts/alertas.js"></script>
+
+    <!-- Bundles de estilos -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+    <!-- Barra superior fija -->
+    <nav class="navbar navbar-light bg-light shadow-sm p-0 px-3 fixed-top" style="height: 56px;">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <!-- Logo a la izquierda -->
+            <div class="d-flex align-items-center">
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand p-0">
+                    <img src="@Url.Content("~/imagen/logo.png")" alt="EP Logistics" style="height: 40px;">
+                </a>
+            </div>
+
+            <!-- Icono de casa en el centro - ahora con posición fija -->
+            <div class="position-absolute start-50 translate-middle-x">
+                <a href="@Url.Action("Index", "Home")" class="text-dark">
+                    <i class="fa-solid fa-house fa-2x"></i>
+                </a>
+            </div>
+
+            <!-- Selección de sucursal a la derecha -->
+            <div class="d-flex align-items-center" id="sucursal">
+                @if (Session["SucursalSeleccionada"] != null)
+                {
+                    var sucursal = Session["SucursalSeleccionada"] as EPTransporte.Models.Sucursal;
+                    <a href="@Url.Action("Index", "Configuracion")" class="me-3 bg-light p-2 rounded text-decoration-none">
+                        <i class="fa-solid fa-building me-1"></i>
+                        <span>@sucursal.SitioEP</span>
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", "Configuracion")" class="btn btn-sm btn-outline-primary me-3">
+                        <i class="fa-solid fa-building me-1"></i>
+                        Seleccionar Sucursal
+                    </a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="main-container">
+        <main class="content">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!-- DataTables JS -->
+    <script src="@Url.Content("~/Content/DataTables/datatables.min.js")"></script>
+    <script src="@Url.Content("~/Content/DataTables/dataTables.js")"></script>
+
+
+    <link href="~/Content/toastr/toastr.min.css" rel="stylesheet" />
+    <script src="~/Content/toastr/toastr.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    <!-- Scripts globales -->
+<script>
+        // Auto-dismiss para alertas
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.auto-dismiss').fadeOut('slow', function () {
+                    $(this).remove();
+                });
+            }, 2000);
+
+            const swalOptions = {
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+
+        };
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+            Swal.fire({
+                ...swalOptions,
+                icon: 'success',
+                title: 'Éxito',
+                text: '@Html.Raw(TempData["SuccessMessage"])'
+            });
+            </text>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+            Swal.fire({
+                ...swalOptions,
+                icon: 'error',
+                title: 'Error',
+                text: '@Html.Raw(TempData["ErrorMessage"])',
+                toast: false,
+
+            });
+            </text>
+        }
+
+        @if (TempData["Message"] != null)
+        {
+            <text>
+            Swal.fire({
+                ...swalOptions,
+                icon: 'info',
+                text: '@Html.Raw(TempData["Message"])'
+            });
+            </text>
+        }
+});
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'en,es', // Solo inglés y español
+            }, 'google_translate_element');
+        }
+</script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
